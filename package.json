@@ -8,8 +8,18 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "prompt": "^1.0.0"
-  }
+    "prompt": "^1.0.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoinethebault/hotel-app-console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antoinethebault/hotel-app-console/issues"
+  },
+  "homepage": "https://github.com/antoinethebault/hotel-app-console#readme",
+  "description": ""
 }
