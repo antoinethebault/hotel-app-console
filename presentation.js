@@ -36,8 +36,14 @@ function ajouterClient(rl){
         var nom = saisie;
         rl.question('Entrez un prenom : ', function(saisie){
             var prenom = saisie;
-            service.ajouterClient(nom, prenom);
-            //console.log(nom+" "+prenom);
+            service.ajouterClient(nom, prenom, 
+                function(err){
+                console.log(err);
+                index.choisir();
+            }, function (body){
+                console.log('Client créé uuid =', body.uuid);
+                index.choisir();
+            });
             index.choisir();
         });
     });

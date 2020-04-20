@@ -18,17 +18,20 @@ function creerClient(creerClientFonction){
 
 exports.creerClient = creerClient;
 
-function ajouterClient(nom, prenom){
-    request.post('http://localhost:8080/clients', {
-      json: {nom: nom, prenom: prenom}},
-        (error, res, body) => {
-            if (error) {
-                console.error(error);
-                return;
+function ajouterClient(nom, prenom, callbackErr, callbackSuccess){
+    request('http://localhost:8080/clients', { json: true,
+        method: 'POST',
+        body: {
+            nom : nom,
+            prenoms : prenom
         }
-        console.log(`statusCode: ${res.statusCode}`)
-        console.log(body)
-  });
+    }, function(err, res, body) {
+        if (err) { 
+            callbackErr(err)
+        } else {
+            callbackSuccess(body)
+        }
+    });
 }
 
 exports.ajouterClient = ajouterClient;
