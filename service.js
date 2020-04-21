@@ -8,16 +8,10 @@ function listerClients(){
     requestPromise(url, 
     { json: true })
     .then((body) => presentation.afficherClients(null,null,body))
-    .catch((err) => presentation.afficherClients(null,null,body))
+    .catch((err) => presentation.afficherClients(err,null,null))
 }
 
 exports.listerClients = listerClients;
-
-function creerClient(creerClientFonction){
-    creerClientFonction();
-}
-
-exports.creerClient = creerClient;
 
 function ajouterClient(nom, prenom, callbackErr, callbackSuccess){
     requestPromise(url, { json: true,

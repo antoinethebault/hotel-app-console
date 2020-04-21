@@ -65,9 +65,9 @@ let choix;
       service.listerClients();
     }
     else if (choix =='2'){
-      service.creerClient(() => {
+      
         ajouterClient(rl);
-      });      
+           
     }
     else if (choix == '99'){
       rl.close();
