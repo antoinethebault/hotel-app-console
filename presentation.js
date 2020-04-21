@@ -41,19 +41,23 @@ function ajouterClient(rl){
         const nom = saisie;
         rl.question('Entrez un prenom : ', (saisie) => {
             const prenom = saisie;
-            service.ajouterClient(nom, prenom, 
-                (err) => {
-                console.log(err);
-                choisir();
-            }, (body) => {
-                console.log('Client créé uuid =', body.uuid);
-                choisir();
-            });
+            service.ajouterClient(nom, prenom);
         });
     });
 }
 
 exports.ajouterClient = ajouterClient;
+
+function clientAjoute(err, body){
+    if (err){
+        console.log(err);
+    }else {
+        console.log('Client créé uuid =', body.uuid);
+        choisir();
+    }
+}
+
+exports.clientAjoute = clientAjoute;
 
 function choisir(){
 start();

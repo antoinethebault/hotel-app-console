@@ -13,15 +13,15 @@ function listerClients(){
 
 exports.listerClients = listerClients;
 
-function ajouterClient(nom, prenom, callbackErr, callbackSuccess){
+function ajouterClient(nom, prenom){
     requestPromise(url, { json: true,
         method: 'POST',
         body: {
             nom : nom,
             prenoms : prenom
         }})
-        .then((body) => callbackSuccess(body))
-        .catch((err) => callbackErr(err));
+        .then((body) => presentation.clientAjoute(null, body))
+        .catch((err) => presentation.clientAjoute(err, null));
 }
 
 exports.ajouterClient = ajouterClient;
