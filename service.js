@@ -1,7 +1,7 @@
 
 const presentation = require('./presentation.js');
-var request = require('request');
-var requestPromise = require('request-promise-native')
+var requestPromise = require('request-promise-native');
+
 const url = 'http://localhost:8080/clients';
 
 function listerClients(){

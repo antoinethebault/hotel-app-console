@@ -60,27 +60,25 @@ function clientAjoute(err, body){
 exports.clientAjoute = clientAjoute;
 
 function choisir(){
-start();
-let choix;
+    start();
+    let choix;
 
-  rl.question('', (line) => {
-    choix = line;
-    if (choix == '1'){
-      service.listerClients();
-    }
-    else if (choix =='2'){
-      
-        ajouterClient(rl);
-           
-    }
-    else if (choix == '99'){
-      rl.close();
-      quitter();
-    }
-    else {
-        choisir();
-    }
-  });
+    rl.question('', (line) => {
+        choix = line;
+        if (choix == '1'){
+            service.listerClients();
+        }
+        else if (choix =='2'){
+            ajouterClient(rl);
+        }
+        else if (choix == '99'){
+            rl.close();
+            quitter();
+        }
+        else {
+            choisir();
+        }
+    });
 }
 
 exports.choisir = choisir;
