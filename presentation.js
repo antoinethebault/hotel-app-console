@@ -1,6 +1,6 @@
 
-var service = require('./service.js');
-var index = require('./index.js');
+const service = require('./service.js');
+const index = require('./index.js');
 
 function start(){
     console.log('** Administration Hotel **\n');
@@ -24,7 +24,7 @@ exports.quitter = quitter;
 function afficherClients(err, res, body){
     if (err) { return console.log('Erreur', err); }
     console.log('>> Liste des clients');
-    for (var i=0; i<body.length; i++){
+    for (let i=0; i<body.length; i++){
         console.log(body[i].nom+" "+body[i].prenoms)
     }
 }
@@ -32,21 +32,56 @@ function afficherClients(err, res, body){
 exports.afficherClients = afficherClients;
 
 function ajouterClient(rl){
-    rl.question('Entrez un nom : ', function(saisie){
-        var nom = saisie;
-        rl.question('Entrez un prenom : ', function(saisie){
-            var prenom = saisie;
+    rl.question('Entrez un nom : ', (saisie) => {
+        const nom = saisie;
+        rl.question('Entrez un prenom : ', (saisie) => {
+            const prenom = saisie;
             service.ajouterClient(nom, prenom, 
-                function(err){
+                (err) => {
                 console.log(err);
-                index.choisir();
-            }, function (body){
+                choisir();
+            }, (body) => {
                 console.log('Client créé uuid =', body.uuid);
-                index.choisir();
+                choisir();
             });
-            index.choisir();
+            choisir();
         });
     });
 }
 
 exports.ajouterClient = ajouterClient;
+
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function choisir(){
+start();
+let choix;
+  rl.question('', (line) => {
+    choix = line;
+    if (choix == '1'){
+      service.listerClients((err, res, clients) => {
+        afficherClients(err, res, clients);
+        choisir();
+      });
+    }
+    else if (choix =='2'){
+      service.creerClient(() => {
+        ajouterClient(rl);
+        choisir();
+      });      
+    }
+    else if (choix == '99'){
+      rl.close();
+      quitter();
+    }
+    else {
+        choisir();
+    }
+  });
+}
+
+exports.choisir = choisir;

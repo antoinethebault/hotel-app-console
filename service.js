@@ -5,7 +5,7 @@ var request = require('request');
 function listerClients(clientsFonction){
     request('http://localhost:8080/clients', 
     { json: true }, 
-    function(err, res, body) {
+    (err, res, body) => {
             clientsFonction(err, res, body);
         })
     };
@@ -25,7 +25,7 @@ function ajouterClient(nom, prenom, callbackErr, callbackSuccess){
             nom : nom,
             prenoms : prenom
         }
-    }, function(err, res, body) {
+    }, (err, res, body) => {
         if (err) { 
             callbackErr(err)
         } else {
