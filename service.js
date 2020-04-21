@@ -1,13 +1,14 @@
 
+const presentation = require('./presentation.js');
 var request = require('request');
 var requestPromise = require('request-promise-native')
 const url = 'http://localhost:8080/clients';
 
-function listerClients(clientsFonction){
+function listerClients(){
     requestPromise(url, 
     { json: true })
-    .then((body) => clientsFonction(null, null, body))
-    .catch((err) => clientsFonction(err, null, null))
+    .then((body) => presentation.afficherClients(null,null,body))
+    .catch((err) => presentation.afficherClients(null,null,body))
 }
 
 exports.listerClients = listerClients;

@@ -31,6 +31,7 @@ function afficherClients(err, res, body){
     for (let i=0; i<body.length; i++){
         console.log(body[i].nom+" "+body[i].prenoms)
     }
+    choisir();
 }
 
 exports.afficherClients = afficherClients;
@@ -57,13 +58,11 @@ exports.ajouterClient = ajouterClient;
 function choisir(){
 start();
 let choix;
+
   rl.question('', (line) => {
     choix = line;
     if (choix == '1'){
-      service.listerClients((err, res, clients) => {
-        afficherClients(err, res, clients);
-        choisir();
-      });
+      service.listerClients();
     }
     else if (choix =='2'){
       service.creerClient(() => {
