@@ -1,14 +1,13 @@
 
-var presentation = require('./presentation.js');
 var request = require('request');
+var requestPromise = require('request-promise-native')
 
 function listerClients(clientsFonction){
-    request('http://localhost:8080/clients', 
-    { json: true }, 
-    (err, res, body) => {
-            clientsFonction(err, res, body);
-        })
-    };
+    requestPromise('http://localhost:8080/clients', 
+    { json: true })
+    .then((body) => clientsFonction(null, null, body))
+    .catch((err) => clientsFonction(err, null, null))
+}
 
 exports.listerClients = listerClients;
 

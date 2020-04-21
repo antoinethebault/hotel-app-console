@@ -1,6 +1,10 @@
 
 const service = require('./service.js');
-const index = require('./index.js');
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 function start(){
     console.log('** Administration Hotel **\n');
@@ -44,18 +48,11 @@ function ajouterClient(rl){
                 console.log('Client créé uuid =', body.uuid);
                 choisir();
             });
-            choisir();
         });
     });
 }
 
 exports.ajouterClient = ajouterClient;
-
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 
 function choisir(){
 start();
@@ -71,7 +68,6 @@ let choix;
     else if (choix =='2'){
       service.creerClient(() => {
         ajouterClient(rl);
-        choisir();
       });      
     }
     else if (choix == '99'){

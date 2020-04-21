@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "prompt": "^1.0.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
   },
   "devDependencies": {},
   "repository": {
