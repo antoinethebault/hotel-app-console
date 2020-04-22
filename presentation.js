@@ -1,77 +1,73 @@
-
-const service = require('./service.js');
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+//const service = require('./service.js');
+//const readline = require('readline');
+var readline_1 = __importDefault(require("readline"));
+var service_1 = require("./service");
+var service_2 = require("./service");
+var rl = readline_1.default.createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
-
-function start(){
+function start() {
     console.log('** Administration Hotel **\n');
     console.log('1. Lister les clients');
     console.log('2. Ajouter un client');
     console.log('3. Rechercher un client par nom');
     console.log('4. Vérifier la disponibilité d\'une chambre');
-    console.log('99. Quitter\n')
-    console.log('Choisir une action : ')
+    console.log('99. Quitter\n');
+    console.log('Choisir une action : ');
 }
-
 exports.start = start;
-
-function quitter(){
+function quitter() {
     console.log('Aurevoir');
     process.exit();
 }
-
-exports.quitter = quitter;
-
-function afficherClients(err, res, body){
-    if (err) { return console.log('Erreur', err); }
+function afficherClients(err, res, body) {
+    if (err) {
+        return console.log('Erreur', err);
+    }
     console.log('>> Liste des clients');
-    for (let i=0; i<body.length; i++){
-        console.log(body[i].nom+" "+body[i].prenoms)
+    for (var i = 0; i < body.length; i++) {
+        console.log(body[i].nom + " " + body[i].prenoms);
     }
     choisir();
 }
-
 exports.afficherClients = afficherClients;
-
-function ajouterClient(rl){
-    rl.question('Entrez un nom : ', (saisie) => {
-        const nom = saisie;
-        rl.question('Entrez un prenom : ', (saisie) => {
-            const prenom = saisie;
-            service.ajouterClient(nom, prenom);
+function ajouterClient(rl) {
+    rl.question('Entrez un nom : ', function (saisie) {
+        var nom = saisie;
+        rl.question('Entrez un prenom : ', function (saisie) {
+            var prenom = saisie;
+            service_2.ajouterClientService(nom, prenom);
         });
     });
 }
-
-exports.ajouterClient = ajouterClient;
-
-function clientAjoute(err, body){
-    if (err){
+function clientAjoute(err, body) {
+    if (err) {
         console.log(err);
-    }else {
+    }
+    else {
         console.log('Client créé uuid =', body.uuid);
         choisir();
     }
 }
-
 exports.clientAjoute = clientAjoute;
-
-function choisir(){
+function choisir() {
     start();
-    let choix;
-
-    rl.question('', (line) => {
+    var choix;
+    rl.question('', function (line) {
         choix = line;
-        if (choix == '1'){
-            service.listerClients();
+        if (choix == '1') {
+            service_1.listerClients();
         }
-        else if (choix =='2'){
+        else if (choix == '2') {
             ajouterClient(rl);
         }
-        else if (choix == '99'){
+        else if (choix == '99') {
             rl.close();
             quitter();
         }
@@ -80,5 +76,4 @@ function choisir(){
         }
     });
 }
-
 exports.choisir = choisir;
