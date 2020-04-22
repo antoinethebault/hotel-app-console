@@ -1,11 +1,6 @@
 
-//const service = require('./service.js');
-//const readline = require('readline');
 import readline from 'readline';
-import{listerClients} from './service';
-import{ajouterClientService} from './service';
-import{rechercherClientService} from './service';
-import{verifierDispoChambreService} from './service';
+import{Service} from './service';
 import{Client} from './domain';
 import{Error} from './domain';
 
@@ -54,7 +49,7 @@ function ajouterClient(rl:any){
         const nom = saisie;
         rl.question('Entrez un prenom : ', (saisie:string) => {
             const prenom = saisie;
-            ajouterClientService(nom, prenom);
+            Service.ajouterClient(nom, prenom);
         });
     });
 }
@@ -71,7 +66,7 @@ export function clientAjoute(err:string|null, body:any|null){
 function rechercherClient(){
     rl.question('Entrez un nom : ', (saisie:string) => {
         const nom = saisie;
-        rechercherClientService(nom);
+        Service.rechercherClient(nom);
     });
 }
 
@@ -84,7 +79,7 @@ export function afficherClient(client:Client){
 function verifierDispoChambre(){
     rl.question('Entrez le numero : ', (saisie:string) => {
         const numero = saisie;
-        verifierDispoChambreService(numero);
+        Service.verifierDispoChambre(numero);
     });
 }
 
@@ -95,7 +90,7 @@ export function choisir(){
     rl.question('', (line) => {
         choix = line;
         if (choix == '1'){
-            listerClients();
+            Service.listerClients();
         }
         else if (choix =='2'){
             ajouterClient(rl);

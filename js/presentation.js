@@ -3,13 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//const service = require('./service.js');
-//const readline = require('readline');
 var readline_1 = __importDefault(require("readline"));
 var service_1 = require("./service");
-var service_2 = require("./service");
-var service_3 = require("./service");
-var service_4 = require("./service");
 var rl = readline_1.default.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -51,7 +46,7 @@ function ajouterClient(rl) {
         var nom = saisie;
         rl.question('Entrez un prenom : ', function (saisie) {
             var prenom = saisie;
-            service_2.ajouterClientService(nom, prenom);
+            service_1.Service.ajouterClient(nom, prenom);
         });
     });
 }
@@ -68,7 +63,7 @@ exports.clientAjoute = clientAjoute;
 function rechercherClient() {
     rl.question('Entrez un nom : ', function (saisie) {
         var nom = saisie;
-        service_3.rechercherClientService(nom);
+        service_1.Service.rechercherClient(nom);
     });
 }
 function afficherClient(client) {
@@ -80,7 +75,7 @@ exports.afficherClient = afficherClient;
 function verifierDispoChambre() {
     rl.question('Entrez le numero : ', function (saisie) {
         var numero = saisie;
-        service_4.verifierDispoChambreService(numero);
+        service_1.Service.verifierDispoChambre(numero);
     });
 }
 function choisir() {
@@ -89,7 +84,7 @@ function choisir() {
     rl.question('', function (line) {
         choix = line;
         if (choix == '1') {
-            service_1.listerClients();
+            service_1.Service.listerClients();
         }
         else if (choix == '2') {
             ajouterClient(rl);
