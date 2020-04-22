@@ -18,29 +18,61 @@ function start() {
     console.log('99. Quitter\n');
     console.log('Choisir une action : ');
 }
-exports.start = start;
+var presentation = /** @class */ (function () {
+    function presentation() {
+    }
+    presentation.choisir = function () {
+        start();
+        var choix;
+        rl.question('', function (line) {
+            choix = line;
+            if (choix == '1') {
+                service_1.Service.listerClients();
+            }
+            else if (choix == '2') {
+                ajouterClient(rl);
+            }
+            else if (choix == '3') {
+                rechercherClient();
+            }
+            else if (choix == '4') {
+                verifierDispoChambre();
+            }
+            else if (choix == '99') {
+                rl.close();
+                quitter();
+            }
+            else {
+                presentation.choisir();
+            }
+        });
+    };
+    presentation.afficherClients = function (body) {
+        console.log('>> Liste des clients');
+        for (var i = 0; i < body.length; i++) {
+            console.log(body[i].nom + " " + body[i].prenoms);
+        }
+        presentation.choisir();
+    };
+    presentation.afficherErreur = function (err) {
+        console.log(err.message);
+        presentation.choisir();
+    };
+    presentation.clientAjoute = function (body) {
+        console.log('Client créé uuid =', body.uuid);
+        presentation.choisir();
+    };
+    presentation.afficher = function (msg) {
+        console.log(msg);
+        presentation.choisir();
+    };
+    return presentation;
+}());
+exports.presentation = presentation;
 function quitter() {
     console.log('Aurevoir');
     process.exit();
 }
-function afficherErreur(err) {
-    console.log(err.message);
-    choisir();
-}
-exports.afficherErreur = afficherErreur;
-function afficher(msg) {
-    console.log(msg);
-    choisir();
-}
-exports.afficher = afficher;
-function afficherClients(body) {
-    console.log('>> Liste des clients');
-    for (var i = 0; i < body.length; i++) {
-        console.log(body[i].nom + " " + body[i].prenoms);
-    }
-    choisir();
-}
-exports.afficherClients = afficherClients;
 function ajouterClient(rl) {
     rl.question('Entrez un nom : ', function (saisie) {
         var nom = saisie;
@@ -50,58 +82,15 @@ function ajouterClient(rl) {
         });
     });
 }
-function clientAjoute(err, body) {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        console.log('Client créé uuid =', body.uuid);
-        choisir();
-    }
-}
-exports.clientAjoute = clientAjoute;
 function rechercherClient() {
     rl.question('Entrez un nom : ', function (saisie) {
         var nom = saisie;
         service_1.Service.rechercherClient(nom);
     });
 }
-function afficherClient(client) {
-    console.log('Client trouve :');
-    console.log(client);
-    choisir();
-}
-exports.afficherClient = afficherClient;
 function verifierDispoChambre() {
     rl.question('Entrez le numero : ', function (saisie) {
         var numero = saisie;
         service_1.Service.verifierDispoChambre(numero);
     });
 }
-function choisir() {
-    start();
-    var choix;
-    rl.question('', function (line) {
-        choix = line;
-        if (choix == '1') {
-            service_1.Service.listerClients();
-        }
-        else if (choix == '2') {
-            ajouterClient(rl);
-        }
-        else if (choix == '3') {
-            rechercherClient();
-        }
-        else if (choix == '4') {
-            verifierDispoChambre();
-        }
-        else if (choix == '99') {
-            rl.close();
-            quitter();
-        }
-        else {
-            choisir();
-        }
-    });
-}
-exports.choisir = choisir;

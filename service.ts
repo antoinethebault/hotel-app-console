@@ -1,12 +1,5 @@
-
-//const presentation = require('./presentation.js');
-//var requestPromise = require('request-promise-native');
 import requestPromise from 'request-promise-native';
-import{afficherClients} from './presentation';
-import{afficherErreur} from './presentation';
-import {clientAjoute} from './presentation';
-import {afficherClient} from './presentation';
-import {afficher} from './presentation';
+import{presentation} from './presentation';
 
 const url = 'http://localhost:8080/';
 
@@ -14,8 +7,8 @@ export class Service{
     static listerClients(){
         requestPromise(url+'clients', 
         { json: true })
-        .then((body) => afficherClients(body))
-        .catch((err) => afficherErreur(err))
+        .then((body) => presentation.afficherClients(body))
+        .catch((err) => presentation.afficherErreur(err))
     }
 
     static ajouterClient(nom:string, prenom:string){
@@ -25,21 +18,21 @@ export class Service{
                 nom : nom,
                 prenoms : prenom
             }})
-            .then((body) => clientAjoute(null, body))
-            .catch((err) => afficherErreur(err));
+            .then((body) => presentation.clientAjoute(body))
+            .catch((err) => presentation.afficherErreur(err));
     }
 
     static rechercherClient(nom:string){
         requestPromise(url+'clients/client?nom='+nom, 
             { json: true })
-            .then((body) => afficherClients(body))
-            .catch((err) => afficherErreur(err))
+            .then((body) => presentation.afficherClients(body))
+            .catch((err) => presentation.afficherErreur(err))
     }
 
     static verifierDispoChambre(numero:string){
         requestPromise(url+'chambres/chambreDispo?numero='+numero, 
             { json: true })
-            .then((body) => afficher(body))
-            .catch((err) => afficherErreur(err))
+            .then((body) => presentation.afficher(body))
+            .catch((err) => presentation.afficherErreur(err))
     }
 }

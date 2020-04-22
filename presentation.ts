@@ -19,29 +19,62 @@ function start(){
     console.log('Choisir une action : ')
 }
 
-exports.start = start;
+export class presentation{
+    static choisir(){
+        start();
+        let choix;
+    
+        rl.question('', (line) => {
+            choix = line;
+            if (choix == '1'){
+                Service.listerClients();
+            }
+            else if (choix =='2'){
+                ajouterClient(rl);
+            }
+            else if (choix == '3'){
+                rechercherClient();
+            }
+            else if (choix == '4'){
+                verifierDispoChambre();
+            }
+            else if (choix == '99'){
+                rl.close();
+                quitter();
+            }
+            else {
+                presentation.choisir();
+            }
+        });
+    }
+
+    static afficherClients(body:Client[]):void{
+        console.log('>> Liste des clients');
+        for (let i=0; i<body.length; i++){
+            console.log(body[i].nom+" "+body[i].prenoms)
+        }
+        presentation.choisir();
+    }
+
+    static afficherErreur(err:Error){
+        console.log(err.message);
+        presentation.choisir();
+    }
+
+    static clientAjoute( body:any|null){
+        console.log('Client créé uuid =', body.uuid);
+        presentation.choisir();
+    }
+
+    static afficher(msg:string){
+        console.log(msg);
+        presentation.choisir();
+    }
+}
 
 function quitter(){
     console.log('Aurevoir');
     process.exit();
-}
-
-export function afficherErreur(err:Error){
-    console.log(err.message);
-    choisir();
-}
-
-export function afficher(msg:string){
-    console.log(msg);
-    choisir();
-}
-
-export function afficherClients(body:Client[]):void{
-    console.log('>> Liste des clients');
-    for (let i=0; i<body.length; i++){
-        console.log(body[i].nom+" "+body[i].prenoms)
-    }
-    choisir();
 }
 
 function ajouterClient(rl:any){
@@ -54,26 +87,11 @@ function ajouterClient(rl:any){
     });
 }
 
-export function clientAjoute(err:string|null, body:any|null){
-    if (err){
-        console.log(err);
-    }else {
-        console.log('Client créé uuid =', body.uuid);
-        choisir();
-    }
-}
-
 function rechercherClient(){
     rl.question('Entrez un nom : ', (saisie:string) => {
         const nom = saisie;
         Service.rechercherClient(nom);
     });
-}
-
-export function afficherClient(client:Client){
-    console.log('Client trouve :');
-    console.log(client);
-    choisir();
 }
 
 function verifierDispoChambre(){
@@ -83,30 +101,4 @@ function verifierDispoChambre(){
     });
 }
 
-export function choisir(){
-    start();
-    let choix;
 
-    rl.question('', (line) => {
-        choix = line;
-        if (choix == '1'){
-            Service.listerClients();
-        }
-        else if (choix =='2'){
-            ajouterClient(rl);
-        }
-        else if (choix == '3'){
-            rechercherClient();
-        }
-        else if (choix == '4'){
-            verifierDispoChambre();
-        }
-        else if (choix == '99'){
-            rl.close();
-            quitter();
-        }
-        else {
-            choisir();
-        }
-    });
-}

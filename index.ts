@@ -1,5 +1,5 @@
 //var presentation = require('./presentation.js');
-import {choisir} from './presentation';
+import {presentation} from './presentation';
 
-choisir();
+presentation.choisir();
 
