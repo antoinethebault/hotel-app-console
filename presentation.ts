@@ -5,6 +5,7 @@ import readline from 'readline';
 import{listerClients} from './service';
 import{ajouterClientService} from './service';
 import{rechercherClientService} from './service';
+import{verifierDispoChambreService} from './service';
 import{Client} from './domain';
 import{Error} from './domain';
 
@@ -32,6 +33,11 @@ function quitter(){
 
 export function afficherErreur(err:Error){
     console.log(err.message);
+    choisir();
+}
+
+export function afficher(msg:string){
+    console.log(msg);
     choisir();
 }
 
@@ -75,6 +81,13 @@ export function afficherClient(client:Client){
     choisir();
 }
 
+function verifierDispoChambre(){
+    rl.question('Entrez le numero : ', (saisie:string) => {
+        const numero = saisie;
+        verifierDispoChambreService(numero);
+    });
+}
+
 export function choisir(){
     start();
     let choix;
@@ -89,6 +102,9 @@ export function choisir(){
         }
         else if (choix == '3'){
             rechercherClient();
+        }
+        else if (choix == '4'){
+            verifierDispoChambre();
         }
         else if (choix == '99'){
             rl.close();

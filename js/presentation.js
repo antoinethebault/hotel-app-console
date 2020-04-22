@@ -9,6 +9,7 @@ var readline_1 = __importDefault(require("readline"));
 var service_1 = require("./service");
 var service_2 = require("./service");
 var service_3 = require("./service");
+var service_4 = require("./service");
 var rl = readline_1.default.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -32,6 +33,11 @@ function afficherErreur(err) {
     choisir();
 }
 exports.afficherErreur = afficherErreur;
+function afficher(msg) {
+    console.log(msg);
+    choisir();
+}
+exports.afficher = afficher;
 function afficherClients(body) {
     console.log('>> Liste des clients');
     for (var i = 0; i < body.length; i++) {
@@ -71,6 +77,12 @@ function afficherClient(client) {
     choisir();
 }
 exports.afficherClient = afficherClient;
+function verifierDispoChambre() {
+    rl.question('Entrez le numero : ', function (saisie) {
+        var numero = saisie;
+        service_4.verifierDispoChambreService(numero);
+    });
+}
 function choisir() {
     start();
     var choix;
@@ -84,6 +96,9 @@ function choisir() {
         }
         else if (choix == '3') {
             rechercherClient();
+        }
+        else if (choix == '4') {
+            verifierDispoChambre();
         }
         else if (choix == '99') {
             rl.close();
