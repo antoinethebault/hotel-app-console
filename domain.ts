@@ -12,3 +12,11 @@ export class Client{
         return this._prenoms;
     }
 }
+export class Error{
+    constructor(private _message:string){
+
+    }
+    get message(){
+        return this._message
+    }
+}

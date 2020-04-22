@@ -5,6 +5,7 @@ import requestPromise from 'request-promise-native';
 import{afficherClients} from './presentation';
 import{afficherErreur} from './presentation';
 import {clientAjoute} from './presentation';
+import {afficherClient} from './presentation';
 
 const url = 'http://localhost:8080/clients';
 
@@ -24,4 +25,11 @@ export function ajouterClientService(nom:string, prenom:string){
         }})
         .then((body) => clientAjoute(null, body))
         .catch((err) => afficherErreur(err));
+}
+
+export function rechercherClientService(nom:string){
+    requestPromise(url+'/client?nom='+nom, 
+        { json: true })
+        .then((body) => afficherClient(body))
+        .catch((err) => afficherErreur(err))
 }

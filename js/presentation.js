@@ -8,6 +8,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var readline_1 = __importDefault(require("readline"));
 var service_1 = require("./service");
 var service_2 = require("./service");
+var service_3 = require("./service");
 var rl = readline_1.default.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -27,7 +28,8 @@ function quitter() {
     process.exit();
 }
 function afficherErreur(err) {
-    console.log(err);
+    console.log(err.message);
+    choisir();
 }
 exports.afficherErreur = afficherErreur;
 function afficherClients(body) {
@@ -57,6 +59,18 @@ function clientAjoute(err, body) {
     }
 }
 exports.clientAjoute = clientAjoute;
+function rechercherClient() {
+    rl.question('Entrez un nom : ', function (saisie) {
+        var nom = saisie;
+        service_3.rechercherClientService(nom);
+    });
+}
+function afficherClient(client) {
+    console.log('Client trouve :');
+    console.log(client);
+    choisir();
+}
+exports.afficherClient = afficherClient;
 function choisir() {
     start();
     var choix;
@@ -67,6 +81,9 @@ function choisir() {
         }
         else if (choix == '2') {
             ajouterClient(rl);
+        }
+        else if (choix == '3') {
+            rechercherClient();
         }
         else if (choix == '99') {
             rl.close();

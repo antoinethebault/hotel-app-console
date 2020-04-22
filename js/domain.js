@@ -30,3 +30,17 @@ var Client = /** @class */ (function () {
     return Client;
 }());
 exports.Client = Client;
+var Error = /** @class */ (function () {
+    function Error(_message) {
+        this._message = _message;
+    }
+    Object.defineProperty(Error.prototype, "message", {
+        get: function () {
+            return this._message;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Error;
+}());
+exports.Error = Error;

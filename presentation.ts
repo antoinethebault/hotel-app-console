@@ -4,7 +4,9 @@
 import readline from 'readline';
 import{listerClients} from './service';
 import{ajouterClientService} from './service';
+import{rechercherClientService} from './service';
 import{Client} from './domain';
+import{Error} from './domain';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -28,8 +30,9 @@ function quitter(){
     process.exit();
 }
 
-export function afficherErreur(err:string){
-    console.log(err);
+export function afficherErreur(err:Error){
+    console.log(err.message);
+    choisir();
 }
 
 export function afficherClients(body:Client[]):void{
@@ -59,6 +62,19 @@ export function clientAjoute(err:string|null, body:any|null){
     }
 }
 
+function rechercherClient(){
+    rl.question('Entrez un nom : ', (saisie:string) => {
+        const nom = saisie;
+        rechercherClientService(nom);
+    });
+}
+
+export function afficherClient(client:Client){
+    console.log('Client trouve :');
+    console.log(client);
+    choisir();
+}
+
 export function choisir(){
     start();
     let choix;
@@ -70,6 +86,9 @@ export function choisir(){
         }
         else if (choix =='2'){
             ajouterClient(rl);
+        }
+        else if (choix == '3'){
+            rechercherClient();
         }
         else if (choix == '99'){
             rl.close();

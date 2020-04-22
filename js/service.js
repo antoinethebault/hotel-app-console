@@ -9,6 +9,7 @@ var request_promise_native_1 = __importDefault(require("request-promise-native")
 var presentation_1 = require("./presentation");
 var presentation_2 = require("./presentation");
 var presentation_3 = require("./presentation");
+var presentation_4 = require("./presentation");
 var url = 'http://localhost:8080/clients';
 function listerClients() {
     request_promise_native_1.default(url, { json: true })
@@ -27,3 +28,9 @@ function ajouterClientService(nom, prenom) {
         .catch(function (err) { return presentation_2.afficherErreur(err); });
 }
 exports.ajouterClientService = ajouterClientService;
+function rechercherClientService(nom) {
+    request_promise_native_1.default(url + '/client?nom=' + nom, { json: true })
+        .then(function (body) { return presentation_4.afficherClient(body); })
+        .catch(function (err) { return presentation_2.afficherErreur(err); });
+}
+exports.rechercherClientService = rechercherClientService;
