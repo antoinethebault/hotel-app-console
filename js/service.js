@@ -10,7 +10,6 @@ var presentation_1 = require("./presentation");
 var presentation_2 = require("./presentation");
 var presentation_3 = require("./presentation");
 var presentation_4 = require("./presentation");
-var presentation_5 = require("./presentation");
 var url = 'http://localhost:8080/';
 var Service = /** @class */ (function () {
     function Service() {
@@ -32,12 +31,12 @@ var Service = /** @class */ (function () {
     };
     Service.rechercherClient = function (nom) {
         request_promise_native_1.default(url + 'clients/client?nom=' + nom, { json: true })
-            .then(function (body) { return presentation_4.afficherClient(body); })
+            .then(function (body) { return presentation_1.afficherClients(body); })
             .catch(function (err) { return presentation_2.afficherErreur(err); });
     };
     Service.verifierDispoChambre = function (numero) {
         request_promise_native_1.default(url + 'chambres/chambreDispo?numero=' + numero, { json: true })
-            .then(function (body) { return presentation_5.afficher(body); })
+            .then(function (body) { return presentation_4.afficher(body); })
             .catch(function (err) { return presentation_2.afficherErreur(err); });
     };
     return Service;

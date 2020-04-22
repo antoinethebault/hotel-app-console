@@ -32,7 +32,7 @@ export class Service{
     static rechercherClient(nom:string){
         requestPromise(url+'clients/client?nom='+nom, 
             { json: true })
-            .then((body) => afficherClient(body))
+            .then((body) => afficherClients(body))
             .catch((err) => afficherErreur(err))
     }
 
